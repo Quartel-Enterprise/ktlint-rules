@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  release:
+    types: [released, prereleased]
+
+jobs:
+  publish:
+    name: Publish to Maven Central
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v5
+
+      # The release tag (v1.2.3 or 1.2.3) is the published version, so build.gradle.kts never drifts from it
+      - name: Check the tag matches the Gradle version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(sed -nE 's/^version = "([^"]+)"/\1/p' build.gradle.kts)
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Release tag $GITHUB_REF_NAME does not match version $VERSION in build.gradle.kts"
+            exit 1
+          fi
+
+      - run: ./gradlew test publishAndReleaseToMavenCentral --no-configuration-cache
+        env:
+          ORG_GRADLE_PROJECT_signAllPublications: true
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_KEY_CONTENTS }}
+
+      - name: Attach the jar to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" build/libs/ktlint-rules-*.jar --clobber

@@ -1,1 +1,1 @@
-com.quare.bibleplanner.ktlint.BiblePlannerRuleSetProvider
+software.quare.ktlint.QuareRuleSetProvider
