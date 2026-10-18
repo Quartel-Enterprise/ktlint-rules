@@ -26,7 +26,7 @@ A project pins the ruleset version and keeps a small wrapper that never changes:
 ```bash
 mkdir -p scripts
 curl -fsSLo scripts/ktlint.sh \
-  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/1.0.2/consumer/ktlint.sh
+  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/refs/tags/1.0.2/consumer/ktlint.sh
 chmod +x scripts/ktlint.sh
 ```
 
