@@ -23,10 +23,15 @@ runs:
       shell: bash
       env:
         KTLINT_CACHE_DIR: ${{ runner.temp }}/ktlint-versions
+        ACTION_REF: ${{ github.action_ref }}
       run: |
         read -r RULESET KTLINT < <("${{ inputs.script }}" --print-versions)
         echo "ruleset=$RULESET" >> "$GITHUB_OUTPUT"
         echo "ktlint=$KTLINT" >> "$GITHUB_OUTPUT"
+        # The rules always follow the project's pin; a different action ref only means older CI steps
+        if [ "$ACTION_REF" != "$RULESET" ]; then
+          echo "::warning title=ktlint-rules action::The workflow uses the action @$ACTION_REF but the project pins the ruleset $RULESET: bump both together"
+        fi
 
     # Two entries, so a ruleset bump doesn't download the much larger CLI again
     - name: Cache ktlint CLI
