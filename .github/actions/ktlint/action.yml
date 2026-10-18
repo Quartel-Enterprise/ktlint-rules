@@ -1,0 +1,66 @@
+name: 'Run ktlint with the Quare ruleset'
+description: >-
+  Runs the consumer's scripts/ktlint.sh wrapper (which pins the ruleset version), annotates the
+  results and fails on any violation.
+
+inputs:
+  script:
+    description: 'The wrapper that pins the ruleset version and runs the shared runner.'
+    required: false
+    default: './scripts/ktlint.sh'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        distribution: temurin
+        java-version: '21'
+
+    - name: Resolve the ruleset and ktlint versions
+      id: versions
+      shell: bash
+      env:
+        KTLINT_CACHE_DIR: ${{ runner.temp }}/ktlint-versions
+      run: |
+        read -r RULESET KTLINT < <("${{ inputs.script }}" --print-versions)
+        echo "ruleset=$RULESET" >> "$GITHUB_OUTPUT"
+        echo "ktlint=$KTLINT" >> "$GITHUB_OUTPUT"
+
+    # Two entries, so a ruleset bump doesn't download the much larger CLI again
+    - name: Cache ktlint CLI
+      uses: actions/cache@v6
+      with:
+        path: ~/.cache/ktlint/ktlint-${{ steps.versions.outputs.ktlint }}
+        key: ktlint-cli-${{ steps.versions.outputs.ktlint }}
+
+    - name: Cache ruleset
+      uses: actions/cache@v6
+      with:
+        path: |
+          ~/.cache/ktlint/ktlint-rules-${{ steps.versions.outputs.ruleset }}.jar
+          ~/.cache/ktlint/ktlint-rules-${{ steps.versions.outputs.ruleset }}.pom
+          ~/.cache/ktlint/runner-${{ steps.versions.outputs.ruleset }}.sh
+        key: ktlint-ruleset-${{ steps.versions.outputs.ruleset }}
+
+    - name: Run ktlint check
+      id: ktlint-check
+      shell: bash
+      env:
+        KTLINT_REQUIRE_SIGNATURE: 'true'
+      run: '"${{ inputs.script }}"'
+      continue-on-error: true
+
+    - name: Annotate ktlint results
+      uses: yutailang0119/action-ktlint@v6
+      with:
+        report-path: 'build/ktlint-report.xml'
+        ignore-warnings: false
+
+    - name: Fail if ktlint found errors
+      if: steps.ktlint-check.outcome == 'failure'
+      shell: bash
+      run: |
+        echo "❌ ktlint found errors. Run '${{ inputs.script }} --format' to fix what can be fixed automatically."
+        exit 1

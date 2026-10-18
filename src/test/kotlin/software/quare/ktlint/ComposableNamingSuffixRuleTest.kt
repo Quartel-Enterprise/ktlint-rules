@@ -190,12 +190,56 @@ class ComposableNamingSuffixRuleTest {
         // Then
         linted.hasNoLintViolations()
     }
+
+    @Test
+    fun `GIVEN extra suffixes in editorconfig WHEN linting a composable ending in one THEN accepts it`() {
+        // Given
+        val code =
+            """
+            @Composable
+            fun AlbumArtwork() {
+                Image()
+            }
+            """.trimIndent()
+
+        // When
+        val linted = composableNamingSuffixRuleAssertThat(code)
+            .withEditorConfigOverride(ComposableNamingSuffixRule.EXTRA_SUFFIXES_PROPERTY to "Artwork, Controls")
+
+        // Then
+        linted.hasNoLintViolations()
+    }
+
+    @Test
+    fun `GIVEN extra suffixes in editorconfig WHEN linting a composable ending in none THEN still reports it`() {
+        // Given
+        val code =
+            """
+            @Composable
+            fun BookEntry() {
+                Text()
+            }
+            """.trimIndent()
+
+        // When
+        val linted = composableNamingSuffixRuleAssertThat(code)
+            .withEditorConfigOverride(ComposableNamingSuffixRule.EXTRA_SUFFIXES_PROPERTY to "Artwork Controls")
+
+        // Then
+        linted.hasLintViolationWithoutAutoCorrect(
+            2,
+            5,
+            buildViolationMessage("BookEntry", extra = ", Artwork, Controls"),
+        )
+    }
 }
 
-private fun buildViolationMessage(name: String): String =
-    "Composable '$name' must end with one of the allowed suffixes: Action, Badge, Banner, Bar, Box, Bubble, " +
-        "Button, Card, Cell, Chip, Collector, Column, Component, Content, Dialog, Display, Drawer, Effect, Fab, " +
-        "Field, Footer, Grid, Handle, Header, Heading, Hero, Icon, Image, Indicator, Item, Label, Layout, Line, " +
-        "List, Menu, Message, Option, Overlay, Pane, Panel, Picker, Pill, Rail, Root, Row, Scaffold, Screen, " +
-        "Section, Sheet, Sidebar, Skeleton, Slider, Snackbar, Spacer, Spinner, Surface, Switch, Text, Theme, Tile, " +
-        "Title, Toggle. When none describes it, use 'Component'"
+private fun buildViolationMessage(
+    name: String,
+    extra: String = "",
+): String = "Composable '$name' must end with one of the allowed suffixes: Action, Badge, Banner, Bar, Box, Bubble, " +
+    "Button, Card, Cell, Chip, Collector, Column, Component, Content, Dialog, Display, Drawer, Effect, Fab, " +
+    "Field, Footer, Grid, Handle, Header, Heading, Hero, Icon, Image, Indicator, Item, Label, Layout, Line, " +
+    "List, Menu, Message, Option, Overlay, Pane, Panel, Picker, Pill, Rail, Root, Row, Scaffold, Screen, " +
+    "Section, Sheet, Sidebar, Skeleton, Slider, Snackbar, Spacer, Spinner, Surface, Switch, Text, Theme, Tile, " +
+    "Title, Toggle$extra. When none describes it, use 'Component'"

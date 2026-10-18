@@ -16,3 +16,11 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew test jar
+
+      # The ruleset lints itself with the runner consumers use, so a broken runner or rule fails here first
+      - name: Lint with the runner and the jar just built
+        run: |
+          VERSION=$(sed -nE 's/^version = "([^"]+)"/\1/p' build.gradle.kts)
+          KTLINT=$(sed -nE 's/^ktlint[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' gradle/libs.versions.toml)
+          KTLINT_VERSION="$KTLINT" KTLINT_RULESET_JAR="build/libs/ktlint-rules-$VERSION.jar" \
+            scripts/ktlint.sh "$VERSION"

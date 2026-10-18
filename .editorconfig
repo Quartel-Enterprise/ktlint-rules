@@ -11,3 +11,27 @@ indent_style = space
 indent_size = 4
 max_line_length = 120
 ktlint_code_style = ktlint_official
+ktlint_standard_function-naming = disabled
+ktlint_standard_filename = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_when-entry-bracing = disabled
+ktlint_standard_no-unused-imports = enabled
+ktlint_function_signature_body_expression_wrapping = default
+ktlint_quare_test-name-given-when-then = disabled
+ktlint_quare_test-body-sections = disabled
+ktlint_quare_prepare-scenario-returns-unit = disabled
+ktlint_quare_prepare-scenario-last-member = disabled
+ktlint_quare_prepare-scenario-in-given = disabled
+
+[{src/test/**,**/src/test/**}]
+ktlint_quare_comments-say-why = disabled
+ktlint_quare_test-name-given-when-then = enabled
+ktlint_quare_test-body-sections = enabled
+ktlint_quare_max-file-length = disabled
+
+[*.kts]
+ktlint_quare_comments-say-why = disabled
+
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off

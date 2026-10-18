@@ -4,6 +4,7 @@ import com.pinterest.ktlint.rule.engine.core.api.Rule
 import com.pinterest.ktlint.rule.engine.core.api.Rule.About
 import com.pinterest.ktlint.rule.engine.core.api.RuleAutocorrectApproveHandler
 import com.pinterest.ktlint.rule.engine.core.api.RuleId
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfigProperty
 
 private val quareAbout = About(
     maintainer = "Quartel Enterprise",
@@ -13,5 +14,10 @@ private val quareAbout = About(
 
 abstract class QuareRule(
     id: String,
-) : Rule(ruleId = RuleId("$RULE_SET_ID:$id"), about = quareAbout),
+    usesEditorConfigProperties: Set<EditorConfigProperty<*>> = emptySet(),
+) : Rule(
+        ruleId = RuleId("$RULE_SET_ID:$id"),
+        about = quareAbout,
+        usesEditorConfigProperties = usesEditorConfigProperties,
+    ),
     RuleAutocorrectApproveHandler

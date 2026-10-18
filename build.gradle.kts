@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "software.quare"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -53,6 +53,9 @@ mavenPublishing {
         description = "Custom ktlint rule set shared by the Quare Kotlin projects."
         inceptionYear = "2026"
         url = "https://github.com/Quartel-Enterprise/ktlint-rules"
+
+        // Why: scripts/ktlint.sh reads it, so consumers run the ktlint CLI this ruleset was built against
+        properties.put("ktlint.version", libs.versions.ktlint)
 
         licenses {
             license {
