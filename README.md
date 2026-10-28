@@ -123,6 +123,7 @@ ktlint_quare_comments-say-why = disabled
 | `interface-implementation-separate-files` | An interface and its implementation live in separate files |
 | `manual-time-unit-conversion` | Use `Duration` instead of hand-written time unit conversions |
 | `max-file-length` | Files stay under 600 lines |
+| `named-arguments-on-separate-lines` | A call with two or more named arguments puts each argument on its own line |
 | `prefer-method-reference` | Use `::fn` instead of a forwarding lambda |
 | `prepare-scenario-in-given` | Tests call `prepareScenario` in the Given section |
 | `prepare-scenario-last-member` | `prepareScenario` is the last member of a test class |
