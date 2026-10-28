@@ -13,6 +13,7 @@ reads it from there, so a consuming project only pins the ruleset version and ne
 
 | ktlint-rules | ktlint |
 | --- | --- |
+| 1.1.0 | 1.8.0 |
 | 1.0.2 | 1.8.0 |
 | 1.0.1 | 1.8.0 |
 | 1.0.0 | 1.8.0 (no runner, no `ktlint.version` in the POM) |
@@ -26,14 +27,14 @@ A project pins the ruleset version and keeps a small wrapper that never changes:
 ```bash
 mkdir -p scripts
 curl -fsSLo scripts/ktlint.sh \
-  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/refs/tags/1.0.2/consumer/ktlint.sh
+  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/refs/tags/1.1.0/consumer/ktlint.sh
 chmod +x scripts/ktlint.sh
 ```
 
 ```toml
 # gradle/libs.versions.toml (a project without a catalog writes the bare version in .ktlint-rules-version)
 [versions]
-quare-ktlint-rules = "1.0.2"
+quare-ktlint-rules = "1.1.0"
 
 [libraries]
 # Unused by Gradle; it lets Dependabot / Renovate propose new releases
@@ -54,7 +55,7 @@ runner and ktlint together.
 
 ```yaml
 - uses: actions/checkout@v6
-- uses: Quartel-Enterprise/ktlint-rules/.github/actions/ktlint@1.0.2
+- uses: Quartel-Enterprise/ktlint-rules/.github/actions/ktlint@1.1.0
 ```
 
 The action sets up a JDK, caches the CLI and the jar, runs the wrapper, annotates the violations and fails
@@ -75,7 +76,7 @@ version has to match the table above by hand:
 
 ```kotlin
 dependencies {
-    ktlintRuleset("software.quare:ktlint-rules:1.0.2")
+    ktlintRuleset("software.quare:ktlint-rules:1.1.0")
 }
 ```
 
