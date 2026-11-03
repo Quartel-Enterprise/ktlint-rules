@@ -6,4 +6,10 @@ internal enum class TestSection(
     GIVEN("// Given"),
     WHEN("// When"),
     THEN("// Then"),
+    ;
+
+    companion object {
+        fun findByCommentOrNull(text: String): TestSection? =
+            entries.firstOrNull { section -> section.comment == text.trimEnd() }
+    }
 }

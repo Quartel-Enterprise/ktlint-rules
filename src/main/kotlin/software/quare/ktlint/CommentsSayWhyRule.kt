@@ -12,6 +12,8 @@ import com.pinterest.ktlint.rule.engine.core.api.prevLeaf
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiCommentImpl
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
+import org.jetbrains.kotlin.psi.KtNamedFunction
+import org.jetbrains.kotlin.psi.psiUtil.parents
 
 class CommentsSayWhyRule : QuareRule("comments-say-why") {
     private val commentTypes = setOf(EOL_COMMENT, BLOCK_COMMENT, KDOC)
@@ -23,6 +25,7 @@ class CommentsSayWhyRule : QuareRule("comments-say-why") {
         if (node.elementType !in commentTypes) return
         // Why: the autocorrect of a multi-line '// Why:' detaches its continuation lines, which ktlint still visits.
         if (node.isDetachedFromFile()) return
+        if (node.isTestSectionComment()) return
 
         when {
             node.isWhyLineComment() -> checkWhyLineComment(
@@ -108,6 +111,11 @@ class CommentsSayWhyRule : QuareRule("comments-say-why") {
 
     private fun ASTNode.isDetachedFromFile(): Boolean =
         generateSequence(this, ASTNode::getTreeParent).last().elementType != FILE
+
+    // Why: test-body-sections asks for these comments, so a test that follows it must not fail this rule.
+    private fun ASTNode.isTestSectionComment(): Boolean = elementType == EOL_COMMENT &&
+        TestSection.findByCommentOrNull(text) != null &&
+        psi.parents.filterIsInstance<KtNamedFunction>().any { function -> function.isTest() }
 
     private fun ASTNode.isWhyLineComment(): Boolean = elementType == EOL_COMMENT && text.startsWith(WHY_LINE_PREFIX)
 

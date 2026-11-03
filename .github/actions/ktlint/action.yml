@@ -13,7 +13,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up JDK
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         distribution: temurin
         java-version: '21'
@@ -23,13 +23,19 @@ runs:
       shell: bash
       env:
         KTLINT_CACHE_DIR: ${{ runner.temp }}/ktlint-versions
+        CACHE_DIR: ${{ env.KTLINT_CACHE_DIR }}
         ACTION_REF: ${{ github.action_ref }}
       run: |
         read -r RULESET KTLINT < <("${{ inputs.script }}" --print-versions)
-        echo "ruleset=$RULESET" >> "$GITHUB_OUTPUT"
-        echo "ktlint=$KTLINT" >> "$GITHUB_OUTPUT"
-        # The rules always follow the project's pin; a different action ref only means older CI steps
-        if [ "$ACTION_REF" != "$RULESET" ]; then
+        {
+          echo "ruleset=$RULESET"
+          echo "ktlint=$KTLINT"
+          # The caches follow the runner, which reads the caller's KTLINT_CACHE_DIR
+          echo "cache-dir=${CACHE_DIR:-~/.cache/ktlint}"
+        } >> "$GITHUB_OUTPUT"
+        # The rules always follow the project's pin; a different action ref only means older CI steps.
+        # A commit SHA can't be compared with a version, so it never warns.
+        if ! [[ "$ACTION_REF" =~ ^[0-9a-f]{40}$ ]] && [ "$ACTION_REF" != "$RULESET" ]; then
           echo "::warning title=ktlint-rules action::The workflow uses the action @$ACTION_REF but the project pins the ruleset $RULESET: bump both together"
         fi
 
@@ -37,16 +43,16 @@ runs:
     - name: Cache ktlint CLI
       uses: actions/cache@v6
       with:
-        path: ~/.cache/ktlint/ktlint-${{ steps.versions.outputs.ktlint }}
+        path: ${{ steps.versions.outputs.cache-dir }}/ktlint-${{ steps.versions.outputs.ktlint }}
         key: ktlint-cli-${{ steps.versions.outputs.ktlint }}
 
     - name: Cache ruleset
       uses: actions/cache@v6
       with:
         path: |
-          ~/.cache/ktlint/ktlint-rules-${{ steps.versions.outputs.ruleset }}.jar
-          ~/.cache/ktlint/ktlint-rules-${{ steps.versions.outputs.ruleset }}.pom
-          ~/.cache/ktlint/runner-${{ steps.versions.outputs.ruleset }}.sh
+          ${{ steps.versions.outputs.cache-dir }}/ktlint-rules-${{ steps.versions.outputs.ruleset }}.jar
+          ${{ steps.versions.outputs.cache-dir }}/ktlint-rules-${{ steps.versions.outputs.ruleset }}.pom
+          ${{ steps.versions.outputs.cache-dir }}/runner-${{ steps.versions.outputs.ruleset }}.sh
         key: ktlint-ruleset-${{ steps.versions.outputs.ruleset }}
 
     - name: Run ktlint check

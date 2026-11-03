@@ -106,7 +106,7 @@ class DataClassOwnFileRuleTest {
         val code =
             """
             class ProfileUiStateFactory {
-                private data class BibleRow(val name: String?)
+                private data class BookRow(val name: String?)
             }
             """.trimIndent()
 

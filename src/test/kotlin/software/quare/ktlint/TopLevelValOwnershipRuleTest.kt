@@ -111,9 +111,9 @@ class TopLevelValOwnershipRuleTest {
         // Given
         val code =
             """
-            private val tuneScoutAbout = About(maintainer = "Pierre Vieira")
+            private val rulesAbout = About(maintainer = "Jane Doe")
 
-            abstract class QuareRule(id: String) : Rule(ruleId = id, about = tuneScoutAbout)
+            abstract class QuareRule(id: String) : Rule(ruleId = id, about = rulesAbout)
             """.trimIndent()
 
         // When
@@ -151,7 +151,7 @@ class TopLevelValOwnershipRuleTest {
         // Given
         val code =
             """
-            private const val DATABASE_NAME = "bible_planner.db"
+            private const val DATABASE_NAME = "app.db"
 
             val databaseModule: Module = module {
                 single { DATABASE_NAME }

@@ -23,8 +23,8 @@ class InjectedRealtimeRule : QuareRule("injected-realtime") {
 
         emit(
             node.startOffset,
-            "SupabaseClient.realtime is the raw plugin, which removes channels without the serialization " +
-                "SerializedRemovalRealtime adds: inject Realtime instead",
+            "SupabaseClient.realtime is the raw plugin, which bypasses the Realtime the project injects (one that " +
+                "serializes channel removal, say): inject Realtime instead",
             false,
         )
     }
