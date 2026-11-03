@@ -65,7 +65,7 @@ class InjectedRealtimeRuleTest {
 
     private companion object {
         const val VIOLATION_MESSAGE =
-            "SupabaseClient.realtime is the raw plugin, which removes channels without the serialization " +
-                "SerializedRemovalRealtime adds: inject Realtime instead"
+            "SupabaseClient.realtime is the raw plugin, which bypasses the Realtime the project injects (one that " +
+                "serializes channel removal, say): inject Realtime instead"
     }
 }

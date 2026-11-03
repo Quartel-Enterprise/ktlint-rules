@@ -405,6 +405,70 @@ class CommentsSayWhyRuleTest {
         linted.hasNoLintViolations()
     }
 
+    @Test
+    fun `GIVEN the section comments of a test WHEN linting THEN reports nothing`() {
+        // Given
+        val code =
+            """
+            class BooksTest {
+                @Test
+                fun loadsBooks() {
+                    // Given
+                    val repository = FakeRepository()
+
+                    // When
+                    val books = repository.load()
+
+                    // Then
+                    assertEquals(emptyList(), books)
+                }
+            }
+            """.trimIndent()
+
+        // When
+        val linted = commentsSayWhyRuleAssertThat(code)
+
+        // Then
+        linted.hasNoLintViolations()
+    }
+
+    @Test
+    fun `GIVEN a section comment outside a test WHEN linting THEN reports the comment`() {
+        // Given
+        val code =
+            """
+            fun load() {
+                // Given
+                fetchBooks()
+            }
+            """.trimIndent()
+
+        // When
+        val linted = commentsSayWhyRuleAssertThat(code)
+
+        // Then
+        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+    }
+
+    @Test
+    fun `GIVEN a section comment with more text in a test WHEN linting THEN reports the comment`() {
+        // Given
+        val code =
+            """
+            @Test
+            fun loadsBooks() {
+                // Given a repository
+                val repository = FakeRepository()
+            }
+            """.trimIndent()
+
+        // When
+        val linted = commentsSayWhyRuleAssertThat(code)
+
+        // Then
+        linted.hasLintViolationWithoutAutoCorrect(3, 5, VIOLATION_MESSAGE)
+    }
+
     private companion object {
         const val VIOLATION_MESSAGE =
             "Production code only keeps '// Why:' comments (a '/* */' block when they run over several " +

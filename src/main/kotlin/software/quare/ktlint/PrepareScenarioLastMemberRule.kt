@@ -21,7 +21,7 @@ class PrepareScenarioLastMemberRule : QuareRule("prepare-scenario-last-member") 
 
         declarations
             .drop(prepareScenarioIndex + 1)
-            // Why: a class declares its companion object at its end (docs/architecture/code-style.md).
+            // Why: the companion object conventionally closes the class, so it may follow prepareScenario.
             .filterNot { declaration -> declaration.isPrepareScenario() || declaration.isCompanionObject() }
             .forEach { declaration ->
                 emit(

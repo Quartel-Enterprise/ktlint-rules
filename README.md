@@ -19,8 +19,9 @@ The rule set id is `quare`, so violations show up as `quare:<rule-id>`.
 
 - macOS or Linux with `bash` and `curl`. Windows isn't tested.
 - A JDK 17 or newer on the `PATH` (`java`): the ktlint CLI is a Java program.
-- Optional: `gpg`, to check the ruleset's signature. Without it, the runner falls back to the SHA-1 from Maven
-  Central and prints a warning. `shasum` is then needed.
+- Optional: `gpg`, to check the signatures of the ruleset and the ktlint CLI. Without it, the runner falls back
+  to the SHA-1 from Maven Central for the ruleset (`shasum` is then needed), runs the CLI unchecked, and prints
+  a warning.
 - Network access on the first run, to GitHub and Maven Central. Everything is cached in `~/.cache/ktlint`
   afterwards.
 
@@ -84,7 +85,7 @@ The version must be a release (`X.Y.Z`); the wrapper refuses anything else.
 ```
 
 The wrapper downloads the runner ([`scripts/ktlint.sh`](scripts/ktlint.sh)) from the tag of the pinned
-version. The runner downloads the ktlint CLI and the ruleset jar, checks the jar's signature, and lints every
+version. The runner downloads the ktlint CLI and the ruleset jar, checks their signatures, and lints every
 `**/src/**/*.kt` and `**/*.kts` file of the project, except under `build/` and `generated/` folders. Kotlin
 files outside a `src/` folder aren't linted. Bumping the version updates the rules, the runner and ktlint
 together.
@@ -141,15 +142,17 @@ jobs:
 ```
 
 The action sets up a JDK 21, caches the CLI and the jar, runs the wrapper, adds the violations as annotations
-on the pull request files, and fails the job on any of them. It requires `gpg` to verify the jar (preinstalled on
-GitHub's Ubuntu runners).
+on the pull request files, and fails the job on any of them. It requires `gpg` to verify the jar and the CLI
+(preinstalled on GitHub's Ubuntu runners). It caches `KTLINT_CACHE_DIR` when the job sets it, `~/.cache/ktlint`
+otherwise.
 
 | Input | Default | What it is |
 | --- | --- | --- |
 | `script` | `./scripts/ktlint.sh` | Path to the wrapper, when you keep it somewhere else |
 
 The rules always come from the version the project pins. The action's tag only versions the CI steps, so bump
-it together with the pinned version: the action prints a warning when they differ.
+it together with the pinned version: the action prints a warning when they differ (not when it is pinned by
+commit SHA).
 
 ## In the IDE
 
@@ -182,11 +185,12 @@ root = true
 ktlint_quare_injected-realtime = disabled
 # Composable name suffixes this project allows on top of the built-in ones (spaces or commas)
 ktlint_quare_composable_extra_suffixes = Artwork, Waveform
-# Conflicts with quare:when-entry-single-statement-braces (see below)
+# Lets quare:when-entry-single-statement-braces unbrace every one-line branch (see below)
 ktlint_standard_when-entry-bracing = disabled
 
 # Test sources of JVM, Android and Multiplatform modules, at the root or in a subfolder
 [{src/test/**,**/src/test/**,src/*Test/**,**/src/*Test/**}]
+# Optional: '// Given' / '// When' / '// Then' in a @Test pass anyway; this also allows other test comments
 ktlint_quare_comments-say-why = disabled
 ```
 
@@ -195,13 +199,17 @@ earlier ones for the files they match.
 
 Rules to review first:
 
-- `comments-say-why` flags every comment that doesn't start with `Why:`, KDoc included. It also flags the
-  `// Given` / `// When` / `// Then` comments that `test-body-sections` asks for, so disable it in tests as
-  above. A library that documents its public API with KDoc will want it off.
+- `comments-say-why` flags every comment that doesn't start with `Why:`, KDoc included, except the
+  `// Given` / `// When` / `// Then` comments that `test-body-sections` asks for inside a `@Test`. Other test
+  comments are flagged too, so you may want it off in tests as above. A library that documents its public API
+  with KDoc will want it off.
 - `test-name-given-when-then` and `test-body-sections` apply to every function annotated `@Test`.
 - `injected-realtime` and `suspend-run-catching` assume helpers your project has to provide (see below).
-- `standard:when-entry-bracing` must be disabled, as in the example: `--format` adds braces to every `when`
-  branch once one needs them, and `when-entry-single-statement-braces` then rejects them.
+- `standard:when-entry-bracing` (on by default in `ktlint_official`) braces every branch of a `when` once one
+  has braces or a multi-line body. While it runs, `when-entry-single-statement-braces` leaves alone a `when`
+  where some branch keeps its braces, so the two rules never contradict each other; elsewhere, unbrace every
+  one-line branch of the `when` at once, or `--format` adds the braces back. Disable it, as in the example,
+  to unbrace one-line branches everywhere.
 
 This repository's own [`.editorconfig`](.editorconfig) is a working example.
 
@@ -211,7 +219,7 @@ Autocorrect: "Yes" means `--format` fixes it; "No" means you fix it by hand.
 
 | Rule id | What it checks | Autocorrect |
 | --- | --- | --- |
-| `comments-say-why` | Every comment (`//`, `/* */`, KDoc) starts with `Why:`. A `// Why:` that runs over several lines becomes a `/* */` block with ` * ` before each line; a one-line block becomes `// Why:` | Reshapes `Why:` comments only; other comments are reported |
+| `comments-say-why` | Every comment (`//`, `/* */`, KDoc) starts with `Why:`, except the `test-body-sections` comments in a `@Test`. A `// Why:` that runs over several lines becomes a `/* */` block with ` * ` before each line; a one-line block becomes `// Why:` | Reshapes `Why:` comments only; other comments are reported |
 | `companion-object-constants` | A private, non-`const` property in a companion object is declared in the class body instead | No |
 | `companion-object-duration` | A non-private `Duration` property in a companion object is a private property of the class instead | No |
 | `composable-naming-suffix` | A `@Composable` function with a capitalized name (not a `@Preview`) ends with a built-in suffix (`Button`, `Card`, `Screen`, `Content`, …) or one from `ktlint_quare_composable_extra_suffixes`; `Component` is the fallback | No |
@@ -243,14 +251,14 @@ Autocorrect: "Yes" means `--format` fixes it; "No" means you fix it by hand.
 | `unit-function-block-body` | A function with an expression body declares its return type, and a `Unit` function uses a block body | No |
 | `unused-function-parameter` | A parameter the body never reads is removed. Overrides, `open`/`abstract`/`operator`/`expect`/`actual`/`external` functions, interface members and `@Suppress("UNUSED_PARAMETER")` are skipped | No |
 | `value-returning-function-naming` | A function with a declared non-`Unit` return type starts with a verb from a built-in list (`get`, `load`, `is`, `to`, …) or ends in `OrNull` / `Of` / `For`. Overrides, composables, `Modifier` extensions and `@Dao` / `@Database` members are skipped | No |
-| `when-entry-single-statement-braces` | A `when` branch whose body is a single one-line statement has no braces | No |
+| `when-entry-single-statement-braces` | A `when` branch whose body is a single one-line statement has no braces. While `standard:when-entry-bracing` runs, a `when` where another branch keeps its braces (several statements, or a multi-line one) is skipped | No |
 
 ## Environment variables
 
 | Variable | What it does |
 | --- | --- |
-| `KTLINT_CACHE_DIR` | Where the runner, the CLI, the jars and the POMs are cached. Default `~/.cache/ktlint`. The CI action caches only the default path |
-| `KTLINT_REQUIRE_SIGNATURE` | `true` fails instead of falling back to the SHA-1 when `gpg` is missing. The CI action sets it |
+| `KTLINT_CACHE_DIR` | Where the runner, the CLI, the jars and the POMs are cached. Default `~/.cache/ktlint`. The CI action caches the same folder |
+| `KTLINT_REQUIRE_SIGNATURE` | `true` fails when `gpg` is missing, instead of falling back to the SHA-1 for the jar and running the CLI unchecked. The CI action sets it |
 | `KTLINT_RULESET_JAR` | A local ruleset jar to use instead of the released one, to try a rule change |
 | `KTLINT_VERSION` | The ktlint CLI version to use instead of the one in the POM, for a ruleset version that isn't released yet |
 
@@ -264,7 +272,10 @@ Autocorrect: "Yes" means `--format` fixes it; "No" means you fix it by hand.
   signature isn't from that key, which covers Maven Central, a mirror or a proxy serving something else.
   Without `gpg` it falls back to Maven Central's SHA-1 and warns; `KTLINT_REQUIRE_SIGNATURE=true` makes `gpg`
   mandatory.
-- **The ktlint CLI** comes from ktlint's GitHub releases over HTTPS. The runner doesn't check its signature.
+- **The ktlint CLI** comes from ktlint's GitHub releases over HTTPS and is checked against its `ktlint.asc`
+  signature from ktlint's signing key `ADBC987D1A7B91DB6B0AAA81995EFBF4A3D20BEB`, which the runner embeds.
+  ktlint publishes no checksum, so without `gpg` the CLI runs unchecked with a warning;
+  `KTLINT_REQUIRE_SIGNATURE=true` makes `gpg` mandatory.
 
 ## Development
 

@@ -20,7 +20,5 @@ internal fun KtDeclaration.isPrepareScenario(): Boolean = this is KtNamedFunctio
 
 internal fun KtNamedFunction.findTestSections(): List<Pair<TestSection, Int>> =
     collectDescendantsOfType<PsiComment>().mapNotNull { comment ->
-        TestSection.entries
-            .firstOrNull { section -> section.comment == comment.text.trimEnd() }
-            ?.let { section -> section to comment.textOffset }
+        TestSection.findByCommentOrNull(comment.text)?.let { section -> section to comment.textOffset }
     }

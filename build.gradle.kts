@@ -50,7 +50,7 @@ mavenPublishing {
 
     pom {
         name = "Quare ktlint rules"
-        description = "Custom ktlint rule set shared by the Quare Kotlin projects."
+        description = "Opinionated extra ktlint rules for Kotlin code."
         inceptionYear = "2026"
         url = "https://github.com/Quartel-Enterprise/ktlint-rules"
 
