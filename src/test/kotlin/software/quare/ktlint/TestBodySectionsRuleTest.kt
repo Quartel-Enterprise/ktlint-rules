@@ -28,9 +28,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            buildViolationMessage("GIVEN no chapters WHEN formatting THEN returns an empty label"),
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("GIVEN no chapters WHEN formatting THEN returns an empty label"),
         )
     }
 
@@ -56,9 +56,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            buildViolationMessage("GIVEN a blank label WHEN parsing THEN throws"),
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("GIVEN a blank label WHEN parsing THEN throws"),
         )
     }
 
@@ -87,9 +87,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            buildViolationMessage("GIVEN a label WHEN parsing THEN returns its chapters"),
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("GIVEN a label WHEN parsing THEN returns its chapters"),
         )
     }
 
@@ -124,9 +124,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            buildViolationMessage("GIVEN a plan WHEN opening twice THEN loads once"),
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("GIVEN a plan WHEN opening twice THEN loads once"),
         )
     }
 
@@ -155,9 +155,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            buildViolationMessage("GIVEN a label WHEN parsing THEN returns its chapters"),
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("GIVEN a label WHEN parsing THEN returns its chapters"),
         )
     }
 
@@ -273,9 +273,9 @@ class TestBodySectionsRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            8,
-            9,
-            buildViolationMessage("GIVEN a plan WHEN opening THEN loads it") +
+            line = 8,
+            col = 9,
+            detail = buildViolationMessage("GIVEN a plan WHEN opening THEN loads it") +
                 " ('// Given' may be left out, since the class sets up before each test)",
         )
     }

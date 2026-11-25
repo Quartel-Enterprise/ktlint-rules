@@ -24,9 +24,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            2,
-            17,
-            buildMissingReturnTypeMessage("setNoteIconEnabled"),
+            line = 2,
+            col = 17,
+            detail = buildMissingReturnTypeMessage("setNoteIconEnabled"),
         )
     }
 
@@ -45,9 +45,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            2,
-            26,
-            buildMissingReturnTypeMessage("setEnabled"),
+            line = 2,
+            col = 26,
+            detail = buildMissingReturnTypeMessage("setEnabled"),
         )
     }
 
@@ -64,9 +64,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            1,
-            5,
-            "Function 'logEvent' returns 'Unit' but uses an expression body; open a block body ({ … }) " +
+            line = 1,
+            col = 5,
+            detail = "Function 'logEvent' returns 'Unit' but uses an expression body; open a block body ({ … }) " +
                 "instead of assigning with '='",
         )
     }
@@ -84,9 +84,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            1,
-            5,
-            "Function 'logEvent' returns 'Unit' but uses an expression body; open a block body ({ … }) " +
+            line = 1,
+            col = 5,
+            detail = "Function 'logEvent' returns 'Unit' but uses an expression body; open a block body ({ … }) " +
                 "instead of assigning with '='",
         )
     }
@@ -104,9 +104,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            1,
-            5,
-            buildMissingReturnTypeMessage("report"),
+            line = 1,
+            col = 5,
+            detail = buildMissingReturnTypeMessage("report"),
         )
     }
 
@@ -123,9 +123,9 @@ class UnitFunctionBlockBodyRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            1,
-            5,
-            buildMissingReturnTypeMessage("buildGreeting"),
+            line = 1,
+            col = 5,
+            detail = buildMissingReturnTypeMessage("buildGreeting"),
         )
     }
 

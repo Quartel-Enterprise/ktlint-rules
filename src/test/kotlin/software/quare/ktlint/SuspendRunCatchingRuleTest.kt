@@ -26,7 +26,11 @@ class SuspendRunCatchingRuleTest {
         val linted = suspendRunCatchingRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -49,7 +53,11 @@ class SuspendRunCatchingRuleTest {
         val linted = suspendRunCatchingRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test

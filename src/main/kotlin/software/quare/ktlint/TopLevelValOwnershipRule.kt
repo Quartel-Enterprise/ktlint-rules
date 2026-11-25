@@ -37,7 +37,13 @@ class TopLevelValOwnershipRule : QuareRule("top-level-val-ownership") {
         node.children20
             .filter { child -> child.isTopLevelPrivateVal() }
             .toList()
-            .forEach { property -> property.reportWhenASingleClassOwnsIt(node, classifiers, emit) }
+            .forEach { property ->
+                property.reportWhenASingleClassOwnsIt(
+                    file = node,
+                    classifiers = classifiers,
+                    emit = emit,
+                )
+            }
     }
 
     private fun ASTNode.reportWhenASingleClassOwnsIt(

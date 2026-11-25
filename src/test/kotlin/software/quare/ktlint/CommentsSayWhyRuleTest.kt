@@ -22,7 +22,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -37,7 +41,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 33, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 33,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -58,7 +66,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -78,7 +90,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 1, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 1,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -150,8 +166,11 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted
-            .hasLintViolation(2, 5, MULTI_LINE_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 2,
+                col = 5,
+                detail = MULTI_LINE_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -177,8 +196,11 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted
-            .hasLintViolation(1, 1, MULTI_LINE_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 1,
+                col = 1,
+                detail = MULTI_LINE_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -215,7 +237,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 18, MULTI_LINE_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 18,
+            detail = MULTI_LINE_MESSAGE,
+        )
     }
 
     @Test
@@ -234,7 +260,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, MULTI_LINE_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = MULTI_LINE_MESSAGE,
+        )
     }
 
     @Test
@@ -260,8 +290,11 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted
-            .hasLintViolation(2, 5, SINGLE_LINE_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 2,
+                col = 5,
+                detail = SINGLE_LINE_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -278,7 +311,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 16, SINGLE_LINE_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 16,
+            detail = SINGLE_LINE_MESSAGE,
+        )
     }
 
     @Test
@@ -312,8 +349,11 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted
-            .hasLintViolation(2, 5, MULTI_LINE_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 2,
+                col = 5,
+                detail = MULTI_LINE_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -343,8 +383,11 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted
-            .hasLintViolation(2, 5, MULTI_LINE_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 2,
+                col = 5,
+                detail = MULTI_LINE_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -364,7 +407,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(4, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 4,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -384,9 +431,21 @@ class CommentsSayWhyRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 1, VIOLATION_MESSAGE),
-            LintViolation(3, 5, VIOLATION_MESSAGE),
-            LintViolation(4, 19, VIOLATION_MESSAGE),
+            LintViolation(
+                line = 1,
+                col = 1,
+                detail = VIOLATION_MESSAGE,
+            ),
+            LintViolation(
+                line = 3,
+                col = 5,
+                detail = VIOLATION_MESSAGE,
+            ),
+            LintViolation(
+                line = 4,
+                col = 19,
+                detail = VIOLATION_MESSAGE,
+            ),
         )
     }
 
@@ -447,7 +506,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -466,7 +529,11 @@ class CommentsSayWhyRuleTest {
         val linted = commentsSayWhyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 5, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 5,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     private companion object {

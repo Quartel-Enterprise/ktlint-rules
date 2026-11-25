@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.psi.psiUtil.isAncestor
 
 class InterfaceImplementationSeparateFilesRule : QuareRule("interface-implementation-separate-files") {
     override fun beforeVisitChildNodes(
@@ -47,5 +48,5 @@ class InterfaceImplementationSeparateFilesRule : QuareRule("interface-implementa
         !node.hasModifier(PRIVATE_KEYWORD)
 
     private fun KtClassOrObject.isNestedInAny(interfaces: List<KtClass>): Boolean = interfaces
-        .any { declaration -> PsiTreeUtil.isAncestor(declaration, this, false) }
+        .any { declaration -> declaration.isAncestor(this) }
 }

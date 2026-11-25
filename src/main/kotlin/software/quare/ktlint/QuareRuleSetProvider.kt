@@ -39,5 +39,6 @@ class QuareRuleSetProvider : RuleSetProviderV3(RuleSetId(RULE_SET_ID)) {
         RuleProvider { PrepareScenarioLastMemberRule() },
         RuleProvider { PrepareScenarioInGivenRule() },
         RuleProvider { NamedArgumentsOnSeparateLinesRule() },
+        RuleProvider { NamedArgumentsRequiredRule() },
     )
 }

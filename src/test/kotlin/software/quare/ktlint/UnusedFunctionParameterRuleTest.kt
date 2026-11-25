@@ -19,7 +19,11 @@ class UnusedFunctionParameterRuleTest {
         val linted = unusedFunctionParameterRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 19, buildViolationMessage("name", "buildGreeting"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 19,
+            detail = buildViolationMessage("name", "buildGreeting"),
+        )
     }
 
     @Test
@@ -36,7 +40,11 @@ class UnusedFunctionParameterRuleTest {
         val linted = unusedFunctionParameterRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 22, buildViolationMessage("position", "play"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 22,
+            detail = buildViolationMessage("position", "play"),
+        )
     }
 
     @Test
@@ -52,8 +60,16 @@ class UnusedFunctionParameterRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 16, buildViolationMessage("id", "createBook")),
-            LintViolation(1, 26, buildViolationMessage("title", "createBook")),
+            LintViolation(
+                line = 1,
+                col = 16,
+                detail = buildViolationMessage("id", "createBook"),
+            ),
+            LintViolation(
+                line = 1,
+                col = 26,
+                detail = buildViolationMessage("title", "createBook"),
+            ),
         )
     }
 
@@ -69,7 +85,11 @@ class UnusedFunctionParameterRuleTest {
         val linted = unusedFunctionParameterRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 16, buildViolationMessage("title", "createBook"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 16,
+            detail = buildViolationMessage("title", "createBook"),
+        )
     }
 
     @Test
@@ -86,7 +106,11 @@ class UnusedFunctionParameterRuleTest {
         val linted = unusedFunctionParameterRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 38, buildViolationMessage("index", "toBook"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 38,
+            detail = buildViolationMessage("index", "toBook"),
+        )
     }
 
     @Test
@@ -102,7 +126,11 @@ class UnusedFunctionParameterRuleTest {
         val linted = unusedFunctionParameterRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 19, buildViolationMessage("name", "buildGreeting"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 19,
+            detail = buildViolationMessage("name", "buildGreeting"),
+        )
     }
 
     @Test

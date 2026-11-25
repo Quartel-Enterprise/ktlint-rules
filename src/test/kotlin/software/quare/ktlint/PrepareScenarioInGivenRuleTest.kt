@@ -28,7 +28,11 @@ class PrepareScenarioInGivenRuleTest {
         val linted = prepareScenarioInGivenRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(5, 9, buildViolationMessage("// When"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 5,
+            col = 9,
+            detail = buildViolationMessage("// When"),
+        )
     }
 
     @Test
@@ -56,7 +60,11 @@ class PrepareScenarioInGivenRuleTest {
         val linted = prepareScenarioInGivenRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(11, 9, buildViolationMessage("// Then"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 11,
+            col = 9,
+            detail = buildViolationMessage("// Then"),
+        )
     }
 
     @Test
@@ -88,9 +96,9 @@ class PrepareScenarioInGivenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            9,
-            9,
-            "'prepareScenario' builds the scenario, so it is called under '// Given', not before any section",
+            line = 9,
+            col = 9,
+            detail = "'prepareScenario' builds the scenario, so it is called under '// Given', not before any section",
         )
     }
 

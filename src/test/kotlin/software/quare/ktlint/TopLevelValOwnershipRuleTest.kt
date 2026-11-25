@@ -22,7 +22,11 @@ class TopLevelValOwnershipRuleTest {
         val linted = topLevelValOwnershipRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 19, buildConstantMessage("PAGE_SIZE", "BooksRepositoryImpl"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 19,
+            detail = buildConstantMessage("PAGE_SIZE", "BooksRepositoryImpl"),
+        )
     }
 
     @Test
@@ -41,7 +45,11 @@ class TopLevelValOwnershipRuleTest {
         val linted = topLevelValOwnershipRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 13, buildValueMessage("artworkSize", "ArtworkTest"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 13,
+            detail = buildValueMessage("artworkSize", "ArtworkTest"),
+        )
     }
 
     @Test
@@ -60,7 +68,11 @@ class TopLevelValOwnershipRuleTest {
         val linted = topLevelValOwnershipRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 19, buildConstantMessage("TAG", "Logger"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 19,
+            detail = buildConstantMessage("TAG", "Logger"),
+        )
     }
 
     @Test

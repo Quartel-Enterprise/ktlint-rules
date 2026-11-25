@@ -22,7 +22,11 @@ class CompanionObjectConstantsRuleTest {
         val linted = companionObjectConstantsRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 13, buildViolationMessage("defaultHoldDuration"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 13,
+            detail = buildViolationMessage("defaultHoldDuration"),
+        )
     }
 
     @Test
@@ -41,7 +45,11 @@ class CompanionObjectConstantsRuleTest {
         val linted = companionObjectConstantsRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 21, buildViolationMessage("entries"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 21,
+            detail = buildViolationMessage("entries"),
+        )
     }
 
     @Test

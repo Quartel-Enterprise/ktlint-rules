@@ -25,9 +25,9 @@ class InterfaceImplementationSeparateFilesRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            5,
-            16,
-            buildViolationMessage("AndroidMediaItemFactory", "MediaItemFactory"),
+            line = 5,
+            col = 16,
+            detail = buildViolationMessage("AndroidMediaItemFactory", "MediaItemFactory"),
         )
     }
 
@@ -49,7 +49,11 @@ class InterfaceImplementationSeparateFilesRuleTest {
         val linted = separateFilesRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(5, 8, buildViolationMessage("LoudGreeter", "Greeter"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 5,
+            col = 8,
+            detail = buildViolationMessage("LoudGreeter", "Greeter"),
+        )
     }
 
     @Test
@@ -70,7 +74,11 @@ class InterfaceImplementationSeparateFilesRuleTest {
         val linted = separateFilesRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(5, 7, buildViolationMessage("ServiceLauncher", "Launcher"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 5,
+            col = 7,
+            detail = buildViolationMessage("ServiceLauncher", "Launcher"),
+        )
     }
 
     @Test

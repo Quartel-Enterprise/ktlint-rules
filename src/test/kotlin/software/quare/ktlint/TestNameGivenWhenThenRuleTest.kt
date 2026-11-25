@@ -24,9 +24,9 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'saves the theme' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
+            line = 3,
+            col = 9,
+            detail = "Test 'saves the theme' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
         )
     }
 
@@ -48,9 +48,9 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'given a theme when saving then stores it' is not named 'GIVEN <state> WHEN <action> THEN " +
+            line = 3,
+            col = 9,
+            detail = "Test 'given a theme when saving then stores it' is not named 'GIVEN <state> WHEN <action> THEN " +
                 "<outcome>'",
         )
     }
@@ -73,9 +73,9 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'GIVEN a theme WHEN saving' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
+            line = 3,
+            col = 9,
+            detail = "Test 'GIVEN a theme WHEN saving' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
         )
     }
 
@@ -97,9 +97,9 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'savesTheTheme' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
+            line = 3,
+            col = 9,
+            detail = "Test 'savesTheTheme' is not named 'GIVEN <state> WHEN <action> THEN <outcome>'",
         )
     }
 
@@ -121,10 +121,11 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'GIVEN today's plan WHEN saving THEN stores it' may only hold letters, digits, spaces, '-' and " +
-                "'_': D8 rejects any other character when the test is dexed for a device",
+            line = 3,
+            col = 9,
+            detail =
+                "Test 'GIVEN today's plan WHEN saving THEN stores it' may only hold letters, digits, spaces, '-' and " +
+                    "'_': D8 rejects any other character when the test is dexed for a device",
         )
     }
 
@@ -146,10 +147,11 @@ class TestNameGivenWhenThenRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            3,
-            9,
-            "Test 'GIVEN a plan WHEN saving THEN stores it, then syncs' may only hold letters, digits, spaces, " +
-                "'-' and '_': D8 rejects any other character when the test is dexed for a device",
+            line = 3,
+            col = 9,
+            detail =
+                "Test 'GIVEN a plan WHEN saving THEN stores it, then syncs' may only hold letters, digits, spaces, " +
+                    "'-' and '_': D8 rejects any other character when the test is dexed for a device",
         )
     }
 

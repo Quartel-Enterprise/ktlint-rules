@@ -23,7 +23,11 @@ class InjectedRealtimeRuleTest {
         val linted = injectedRealtimeRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 1, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 1,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -40,7 +44,11 @@ class InjectedRealtimeRuleTest {
         val linted = injectedRealtimeRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 57, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 57,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test

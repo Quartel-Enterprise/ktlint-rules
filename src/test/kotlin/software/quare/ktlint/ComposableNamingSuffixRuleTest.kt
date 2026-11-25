@@ -21,7 +21,11 @@ class ComposableNamingSuffixRuleTest {
         val linted = composableNamingSuffixRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, buildViolationMessage("BookEntry"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = buildViolationMessage("BookEntry"),
+        )
     }
 
     @Test
@@ -39,7 +43,11 @@ class ComposableNamingSuffixRuleTest {
         val linted = composableNamingSuffixRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("PlayerControls"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("PlayerControls"),
+        )
     }
 
     @Test
@@ -57,7 +65,11 @@ class ComposableNamingSuffixRuleTest {
         val linted = composableNamingSuffixRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, buildViolationMessage("ScreenWrapper"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = buildViolationMessage("ScreenWrapper"),
+        )
     }
 
     @Test
@@ -75,7 +87,11 @@ class ComposableNamingSuffixRuleTest {
         val linted = composableNamingSuffixRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, buildViolationMessage("Bookscreen"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = buildViolationMessage("Bookscreen"),
+        )
     }
 
     @Test
@@ -227,9 +243,9 @@ class ComposableNamingSuffixRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            2,
-            5,
-            buildViolationMessage("BookEntry", extra = ", Artwork, Controls"),
+            line = 2,
+            col = 5,
+            detail = buildViolationMessage("BookEntry", extra = ", Artwork, Controls"),
         )
     }
 }

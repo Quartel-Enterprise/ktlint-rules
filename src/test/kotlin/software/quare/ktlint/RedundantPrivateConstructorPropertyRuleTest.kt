@@ -23,7 +23,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("repository", "val"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("repository", "val"),
+        )
     }
 
     @Test
@@ -44,7 +48,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("volume", "val"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("volume", "val"),
+        )
     }
 
     @Test
@@ -63,7 +71,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("repository", "val"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("repository", "val"),
+        )
     }
 
     @Test
@@ -80,7 +92,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("pageSize", "val"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("pageSize", "val"),
+        )
     }
 
     @Test
@@ -99,7 +115,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("volume", "var"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("volume", "var"),
+        )
     }
 
     @Test
@@ -123,7 +143,11 @@ class RedundantPrivateConstructorPropertyRuleTest {
         val linted = redundantPrivateConstructorPropertyRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 13, buildViolationMessage("repository", "val"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 13,
+            detail = buildViolationMessage("repository", "val"),
+        )
     }
 
     @Test

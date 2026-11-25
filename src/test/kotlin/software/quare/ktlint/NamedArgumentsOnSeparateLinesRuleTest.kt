@@ -27,8 +27,11 @@ class NamedArgumentsOnSeparateLinesRuleTest {
 
         // Then
         linted
-            .hasLintViolation(1, 17, VIOLATION_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 1,
+                col = 17,
+                detail = VIOLATION_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -58,8 +61,11 @@ class NamedArgumentsOnSeparateLinesRuleTest {
 
         // Then
         linted
-            .hasLintViolation(3, 16, VIOLATION_MESSAGE)
-            .isFormattedAs(formattedCode)
+            .hasLintViolation(
+                line = 3,
+                col = 16,
+                detail = VIOLATION_MESSAGE,
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -86,8 +92,16 @@ class NamedArgumentsOnSeparateLinesRuleTest {
         // Then
         linted
             .hasLintViolations(
-                LintViolation(1, 19, VIOLATION_MESSAGE),
-                LintViolation(1, 31, VIOLATION_MESSAGE),
+                LintViolation(
+                    line = 1,
+                    col = 19,
+                    detail = VIOLATION_MESSAGE,
+                ),
+                LintViolation(
+                    line = 1,
+                    col = 31,
+                    detail = VIOLATION_MESSAGE,
+                ),
             ).isFormattedAs(formattedCode)
     }
 
@@ -103,7 +117,11 @@ class NamedArgumentsOnSeparateLinesRuleTest {
         val linted = namedArgumentsOnSeparateLinesRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 17, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 17,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
