@@ -21,7 +21,11 @@ class ExplicitBackingFieldRuleTest {
         val linted = explicitBackingFieldRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 17, buildViolationMessage("_uiState", "uiState"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 17,
+            detail = buildViolationMessage("_uiState", "uiState"),
+        )
     }
 
     @Test
@@ -39,7 +43,11 @@ class ExplicitBackingFieldRuleTest {
         val linted = explicitBackingFieldRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 17, buildViolationMessage("_uiAction", "uiAction"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 17,
+            detail = buildViolationMessage("_uiAction", "uiAction"),
+        )
     }
 
     @Test
@@ -58,7 +66,11 @@ class ExplicitBackingFieldRuleTest {
         val linted = explicitBackingFieldRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(4, 17, buildViolationMessage("_selection", "selection"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 4,
+            col = 17,
+            detail = buildViolationMessage("_selection", "selection"),
+        )
     }
 
     @Test

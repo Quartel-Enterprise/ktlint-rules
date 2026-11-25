@@ -22,7 +22,11 @@ class PrepareScenarioReturnsUnitRuleTest {
         val linted = prepareScenarioReturnsUnitRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 17, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 17,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -39,7 +43,11 @@ class PrepareScenarioReturnsUnitRuleTest {
         val linted = prepareScenarioReturnsUnitRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 27, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 27,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -58,7 +66,11 @@ class PrepareScenarioReturnsUnitRuleTest {
         val linted = prepareScenarioReturnsUnitRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 17, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 17,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test

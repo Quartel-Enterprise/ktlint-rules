@@ -21,7 +21,11 @@ class TwoBranchWhenRuleTest {
         val linted = twoBranchWhenRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 51, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 51,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -39,7 +43,11 @@ class TwoBranchWhenRuleTest {
         val linted = twoBranchWhenRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 38, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 38,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -57,7 +65,11 @@ class TwoBranchWhenRuleTest {
         val linted = twoBranchWhenRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 32, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 32,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test

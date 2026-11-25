@@ -23,7 +23,11 @@ class ManualTimeUnitConversionRuleTest {
         val linted = manualTimeUnitConversionRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 46, buildViolationMessage("30L * 60 * 1000"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 46,
+            detail = buildViolationMessage("30L * 60 * 1000"),
+        )
     }
 
     @Test
@@ -40,8 +44,16 @@ class ManualTimeUnitConversionRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 16, buildViolationMessage("60L * 24 * 60 * 60 * 1_000")),
-            LintViolation(2, 14, buildViolationMessage("(24L * 60) * 60")),
+            LintViolation(
+                line = 1,
+                col = 16,
+                detail = buildViolationMessage("60L * 24 * 60 * 60 * 1_000"),
+            ),
+            LintViolation(
+                line = 2,
+                col = 14,
+                detail = buildViolationMessage("(24L * 60) * 60"),
+            ),
         )
     }
 
@@ -57,7 +69,11 @@ class ManualTimeUnitConversionRuleTest {
         val linted = manualTimeUnitConversionRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(1, 37, buildViolationMessage("minutes * 60 * 1000"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 1,
+            col = 37,
+            detail = buildViolationMessage("minutes * 60 * 1000"),
+        )
     }
 
     @Test
@@ -73,8 +89,16 @@ class ManualTimeUnitConversionRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 17, buildViolationMessage("5 * 60 * 60 * 1_000L")),
-            LintViolation(1, 40, buildViolationMessage("7 * 60 * 1_000L")),
+            LintViolation(
+                line = 1,
+                col = 17,
+                detail = buildViolationMessage("5 * 60 * 60 * 1_000L"),
+            ),
+            LintViolation(
+                line = 1,
+                col = 40,
+                detail = buildViolationMessage("7 * 60 * 1_000L"),
+            ),
         )
     }
 
@@ -92,8 +116,16 @@ class ManualTimeUnitConversionRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 15, buildViolationMessage("30u * 60u * 1000u")),
-            LintViolation(2, 13, buildViolationMessage("seconds * 60.0 * 1000")),
+            LintViolation(
+                line = 1,
+                col = 15,
+                detail = buildViolationMessage("30u * 60u * 1000u"),
+            ),
+            LintViolation(
+                line = 2,
+                col = 13,
+                detail = buildViolationMessage("seconds * 60.0 * 1000"),
+            ),
         )
     }
 

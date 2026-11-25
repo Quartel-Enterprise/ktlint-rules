@@ -22,8 +22,16 @@ class DataClassOwnFileRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 12, buildViolationMessage("DayStudy", "DayStudyFact")),
-            LintViolation(3, 12, buildViolationMessage("DayStudyFact", "DayStudy")),
+            LintViolation(
+                line = 1,
+                col = 12,
+                detail = buildViolationMessage("DayStudy", "DayStudyFact"),
+            ),
+            LintViolation(
+                line = 3,
+                col = 12,
+                detail = buildViolationMessage("DayStudyFact", "DayStudy"),
+            ),
         )
     }
 
@@ -42,8 +50,16 @@ class DataClassOwnFileRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(1, 12, buildViolationMessage("SettingsUiState", "ThemeOption")),
-            LintViolation(3, 12, buildViolationMessage("ThemeOption", "SettingsUiState")),
+            LintViolation(
+                line = 1,
+                col = 12,
+                detail = buildViolationMessage("SettingsUiState", "ThemeOption"),
+            ),
+            LintViolation(
+                line = 3,
+                col = 12,
+                detail = buildViolationMessage("ThemeOption", "SettingsUiState"),
+            ),
         )
     }
 
@@ -61,7 +77,11 @@ class DataClassOwnFileRuleTest {
         val linted = dataClassOwnFileRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 20, buildViolationMessage("LogEntry", "RecordingLogWriter"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 20,
+            detail = buildViolationMessage("LogEntry", "RecordingLogWriter"),
+        )
     }
 
     @Test

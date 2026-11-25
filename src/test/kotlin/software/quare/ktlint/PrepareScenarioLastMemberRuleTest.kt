@@ -25,7 +25,11 @@ class PrepareScenarioLastMemberRuleTest {
         val linted = prepareScenarioLastMemberRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(6, 17, buildViolationMessage("buildPlan"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 6,
+            col = 17,
+            detail = buildViolationMessage("buildPlan"),
+        )
     }
 
     @Test
@@ -49,8 +53,16 @@ class PrepareScenarioLastMemberRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(6, 17, buildViolationMessage("plan")),
-            LintViolation(8, 19, buildViolationMessage("FakeDao")),
+            LintViolation(
+                line = 6,
+                col = 17,
+                detail = buildViolationMessage("plan"),
+            ),
+            LintViolation(
+                line = 8,
+                col = 19,
+                detail = buildViolationMessage("FakeDao"),
+            ),
         )
     }
 
@@ -74,7 +86,11 @@ class PrepareScenarioLastMemberRuleTest {
         val linted = prepareScenarioLastMemberRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(6, 5, buildViolationMessage("init block"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 6,
+            col = 5,
+            detail = buildViolationMessage("init block"),
+        )
     }
 
     @Test

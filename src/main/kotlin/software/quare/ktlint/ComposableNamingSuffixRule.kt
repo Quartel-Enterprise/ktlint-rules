@@ -47,7 +47,11 @@ class ComposableNamingSuffixRule :
         annotationEntries.any { annotation -> annotation.shortName?.asString()?.contains(name) == true }
 
     companion object {
-        // Why: each project adds the UI kinds of its own domain (a music app's Artwork) without a ruleset release
+        /*
+         * Why: each project adds the UI kinds of its own domain (a music app's Artwork) without a ruleset release.
+         * PropertyType is a Java class, so its arguments can't be named.
+         */
+        @Suppress("ktlint:quare:named-arguments-required")
         val EXTRA_SUFFIXES_PROPERTY: EditorConfigProperty<String> =
             EditorConfigProperty(
                 type = PropertyType(

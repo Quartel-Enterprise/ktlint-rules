@@ -20,7 +20,11 @@ class PreferMethodReferenceRuleTest {
         val linted = preferMethodReferenceRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 43, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 43,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -37,7 +41,11 @@ class PreferMethodReferenceRuleTest {
         val linted = preferMethodReferenceRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 43, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 43,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -56,7 +64,11 @@ class PreferMethodReferenceRuleTest {
         val linted = preferMethodReferenceRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 47, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 47,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test

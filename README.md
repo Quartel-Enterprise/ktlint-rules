@@ -1,6 +1,6 @@
 # Quare ktlint rules
 
-A set of 33 extra [ktlint](https://ktlint.github.io/ktlint/) rules for Kotlin code, plus a small runner script
+A set of 34 extra [ktlint](https://ktlint.github.io/ktlint/) rules for Kotlin code, plus a small runner script
 and a GitHub Action that run them next to ktlint's standard rules. The rules enforce structure and naming
 conventions that the standard ruleset doesn't cover: one data class per file, no default values in data
 classes, `// Why:`-only comments, Given/When/Then tests, and more (see [Rules](#rules)). Most of them are
@@ -235,6 +235,7 @@ Autocorrect: "Yes" means `--format` fixes it; "No" means you fix it by hand.
 | `manual-time-unit-conversion` | Products of literals that convert time units, like `60 * 1000` or `24 * 60 * 60`, use `kotlin.time.Duration` | No |
 | `max-file-length` | A file has at most 600 lines (fixed) | No |
 | `named-arguments-on-separate-lines` | A call with two or more named arguments puts each argument, and the closing parenthesis, on its own line | Yes, unless the arguments contain a comment |
+| `named-arguments-required` | A call with three or more arguments names every one of them (then `named-arguments-on-separate-lines` puts each on its own line). Vararg builders (`listOf`, `mapOf`, `remember`, `combine`, `stringResource`, …), spread arguments, annotations and calls to a parameter or property of function type are skipped. Java methods can't take named arguments: suppress the call with `@Suppress("ktlint:quare:named-arguments-required")` | No |
 | `prefer-method-reference` | A lambda that only passes its one parameter to a function of the same file is a reference (`::fn`). Suspend and `@Composable` functions are skipped | No |
 | `prepare-scenario-in-given` | In a `@Test`, calls to `prepareScenario` sit under the `// Given` comment | No |
 | `prepare-scenario-last-member` | A function named `prepareScenario` is the last member of its class; only a companion object may follow | No |

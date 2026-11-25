@@ -16,9 +16,9 @@ class MaxFileLengthRuleTest {
 
         // Then
         linted.hasLintViolationWithoutAutoCorrect(
-            1,
-            1,
-            "File has 601 lines, more than the 600 allowed: move a responsibility into a class, mapper or " +
+            line = 1,
+            col = 1,
+            detail = "File has 601 lines, more than the 600 allowed: move a responsibility into a class, mapper or " +
                 "composable of its own",
         )
     }

@@ -24,7 +24,11 @@ class WhenEntrySingleStatementBracesRuleTest {
         val linted = whenEntrySingleStatementBracesRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 10, BRACING_VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 10,
+            detail = BRACING_VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -128,7 +132,11 @@ class WhenEntrySingleStatementBracesRuleTest {
             )
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 10, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 10,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -152,7 +160,11 @@ class WhenEntrySingleStatementBracesRuleTest {
             )
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 10, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 10,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     @Test
@@ -174,7 +186,11 @@ class WhenEntrySingleStatementBracesRuleTest {
             .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.intellij_idea)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 10, VIOLATION_MESSAGE)
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 10,
+            detail = VIOLATION_MESSAGE,
+        )
     }
 
     private companion object {

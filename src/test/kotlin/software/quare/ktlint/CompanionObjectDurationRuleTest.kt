@@ -23,7 +23,11 @@ class CompanionObjectDurationRuleTest {
         val linted = companionObjectDurationRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 13, buildViolationMessage("INITIAL_BACKOFF"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 13,
+            detail = buildViolationMessage("INITIAL_BACKOFF"),
+        )
     }
 
     @Test
@@ -42,7 +46,11 @@ class CompanionObjectDurationRuleTest {
         val linted = companionObjectDurationRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 13, buildViolationMessage("pollInterval"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 13,
+            detail = buildViolationMessage("pollInterval"),
+        )
     }
 
     @Test
@@ -63,8 +71,16 @@ class CompanionObjectDurationRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(3, 22, buildViolationMessage("timeout")),
-            LintViolation(4, 13, buildViolationMessage("idle")),
+            LintViolation(
+                line = 3,
+                col = 22,
+                detail = buildViolationMessage("timeout"),
+            ),
+            LintViolation(
+                line = 4,
+                col = 13,
+                detail = buildViolationMessage("idle"),
+            ),
         )
     }
 

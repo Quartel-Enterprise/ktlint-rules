@@ -22,7 +22,11 @@ class DataClassDefaultValueRuleTest {
         val linted = dataClassDefaultValueRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 9, buildViolationMessage("isLoading"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 9,
+            detail = buildViolationMessage("isLoading"),
+        )
     }
 
     @Test
@@ -41,8 +45,16 @@ class DataClassDefaultValueRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(2, 42, buildViolationMessage("id")),
-            LintViolation(3, 44, buildViolationMessage("readUpdatedAt")),
+            LintViolation(
+                line = 2,
+                col = 42,
+                detail = buildViolationMessage("id"),
+            ),
+            LintViolation(
+                line = 3,
+                col = 44,
+                detail = buildViolationMessage("readUpdatedAt"),
+            ),
         )
     }
 
@@ -62,7 +74,11 @@ class DataClassDefaultValueRuleTest {
         val linted = dataClassDefaultValueRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 13, buildViolationMessage("args"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 13,
+            detail = buildViolationMessage("args"),
+        )
     }
 
     @Test

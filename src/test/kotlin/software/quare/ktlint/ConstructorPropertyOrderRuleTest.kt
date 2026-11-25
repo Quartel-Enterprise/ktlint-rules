@@ -23,7 +23,11 @@ class ConstructorPropertyOrderRuleTest {
         val linted = constructorPropertyOrderRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 5, buildViolationMessage("observablePlayback"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 5,
+            detail = buildViolationMessage("observablePlayback"),
+        )
     }
 
     @Test
@@ -43,8 +47,16 @@ class ConstructorPropertyOrderRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(2, 5, buildViolationMessage("selectedIndexState")),
-            LintViolation(3, 5, buildViolationMessage("startTab")),
+            LintViolation(
+                line = 2,
+                col = 5,
+                detail = buildViolationMessage("selectedIndexState"),
+            ),
+            LintViolation(
+                line = 3,
+                col = 5,
+                detail = buildViolationMessage("startTab"),
+            ),
         )
     }
 
@@ -63,7 +75,11 @@ class ConstructorPropertyOrderRuleTest {
         val linted = constructorPropertyOrderRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(2, 5, buildViolationMessage("player"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 5,
+            detail = buildViolationMessage("player"),
+        )
     }
 
     @Test

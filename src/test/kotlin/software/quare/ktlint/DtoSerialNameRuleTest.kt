@@ -22,7 +22,11 @@ class DtoSerialNameRuleTest {
         val linted = dtoSerialNameRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 9, buildMissingSerialNameMessage("name"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 9,
+            detail = buildMissingSerialNameMessage("name"),
+        )
     }
 
     @Test
@@ -40,7 +44,11 @@ class DtoSerialNameRuleTest {
         val linted = dtoSerialNameRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(3, 9, buildMissingSerialNameMessage("title"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 3,
+            col = 9,
+            detail = buildMissingSerialNameMessage("title"),
+        )
     }
 
     @Test
@@ -60,7 +68,11 @@ class DtoSerialNameRuleTest {
         val linted = dtoSerialNameRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(5, 9, buildMissingSerialNameMessage("name"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 5,
+            col = 9,
+            detail = buildMissingSerialNameMessage("name"),
+        )
     }
 
     @Test
@@ -79,7 +91,11 @@ class DtoSerialNameRuleTest {
         val linted = dtoSerialNameRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(4, 24, buildDefaultValueMessage("name"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 4,
+            col = 24,
+            detail = buildDefaultValueMessage("name"),
+        )
     }
 
     @Test
@@ -98,7 +114,11 @@ class DtoSerialNameRuleTest {
         val linted = dtoSerialNameRuleAssertThat(code)
 
         // Then
-        linted.hasLintViolationWithoutAutoCorrect(4, 29, buildDefaultValueMessage("coverUrl"))
+        linted.hasLintViolationWithoutAutoCorrect(
+            line = 4,
+            col = 29,
+            detail = buildDefaultValueMessage("coverUrl"),
+        )
     }
 
     @Test
@@ -117,8 +137,16 @@ class DtoSerialNameRuleTest {
 
         // Then
         linted.hasLintViolationsWithoutAutoCorrect(
-            LintViolation(3, 9, buildMissingSerialNameMessage("name")),
-            LintViolation(3, 24, buildDefaultValueMessage("name")),
+            LintViolation(
+                line = 3,
+                col = 9,
+                detail = buildMissingSerialNameMessage("name"),
+            ),
+            LintViolation(
+                line = 3,
+                col = 24,
+                detail = buildDefaultValueMessage("name"),
+            ),
         )
     }
 
