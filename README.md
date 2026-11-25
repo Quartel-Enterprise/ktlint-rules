@@ -32,6 +32,7 @@ reads it from there, so a project only pins the ruleset version, never the ktlin
 
 | ktlint-rules | ktlint |
 | --- | --- |
+| 1.3.0 | 1.8.0 |
 | 1.2.0 | 1.8.0 |
 | 1.1.0 | 1.8.0 |
 | 1.0.2 | 1.8.0 |
@@ -47,7 +48,7 @@ From the root of your repository:
 ```bash
 mkdir -p scripts
 curl -fsSLo scripts/ktlint.sh \
-  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/refs/tags/1.2.0/consumer/ktlint.sh
+  https://raw.githubusercontent.com/Quartel-Enterprise/ktlint-rules/refs/tags/1.3.0/consumer/ktlint.sh
 chmod +x scripts/ktlint.sh
 ```
 
@@ -63,7 +64,7 @@ With a Gradle version catalog, add it to `gradle/libs.versions.toml`. The key mu
 
 ```toml
 [versions]
-quare-ktlint-rules = "1.2.0"
+quare-ktlint-rules = "1.3.0"
 
 [libraries]
 # Unused by Gradle; it lets Dependabot / Renovate propose new releases
@@ -73,7 +74,7 @@ quare-ktlint-rules = { module = "software.quare:ktlint-rules", version.ref = "qu
 Without a catalog, write the bare version to `.ktlint-rules-version` at the root:
 
 ```bash
-echo 1.2.0 > .ktlint-rules-version
+echo 1.3.0 > .ktlint-rules-version
 ```
 
 The version must be a release (`X.Y.Z`); the wrapper refuses anything else.
@@ -139,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: Quartel-Enterprise/ktlint-rules/.github/actions/ktlint@1.2.0
+      - uses: Quartel-Enterprise/ktlint-rules/.github/actions/ktlint@1.3.0
 ```
 
 The action sets up a JDK 21, caches the CLI and the jar, runs the wrapper, adds the violations as annotations
@@ -169,7 +170,7 @@ any other ruleset. Set its ktlint version by hand to the one in the [Compatibili
 
 ```kotlin
 dependencies {
-    ktlintRuleset("software.quare:ktlint-rules:1.2.0")
+    ktlintRuleset("software.quare:ktlint-rules:1.3.0")
 }
 ```
 
